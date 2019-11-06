@@ -14,17 +14,11 @@ Node.prototype.match = function(key) {
     }
     return null;
   } else if (this.wildcard === "*") {
-    let subKey = key;
-    let keyPartLength = this.keyPart.length;
-    let subKeyLength = subKey.length;
-    while (subKeyLength >= keyPartLength) {
-      if (subKey.startsWith(this.keyPart)) {
-        return subKey.slice(this.keyPart.length);
-      }
-      subKey = subKey.slice(1);
-      subKeyLength--;
+    const index = key.indexOf(this.keyPart);
+    if (index === -1) {
+      return null;
     }
-    return null;
+    return key.slice(index + this.keyPart.length);
   }
 };
 
